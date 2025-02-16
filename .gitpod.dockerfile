@@ -10,7 +10,7 @@ USER gitpod
 RUN sudo apt-get update && sudo apt-get install -y python3-pip
 
 # Install pyenv and set the Python version
-ENV PYTHON_VERSION=3.8.18
+ENV PYTHON_VERSION=3.12
 
 ENV PATH=$HOME/.pyenv/bin:$HOME/.pyenv/shims:$PATH
 RUN curl -fsSL https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash \
