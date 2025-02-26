@@ -2,7 +2,7 @@ feature-engine>=1.2.0
 setuptools>=70.3.0
 wheel>=0.45.1
 streamlit>=1.14.0
-plotly==5.16.x
+plotly>=5.16.0,<5.17.0
 numpy==2.1.0
 pandas==1.5.3
 seaborn==0.11.2
