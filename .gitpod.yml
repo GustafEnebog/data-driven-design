@@ -1,11 +1,23 @@
 image:
   file: .gitpod.dockerfile
+
 tasks:
   - init: |
       . ${GITPOD_REPO_ROOT}/.vscode/init_tasks.sh
       sudo apt-get update && sudo apt-get install -y python3-distutils
       /home/gitpod/.pg_ctl/bin/pg_start > /dev/null
+      
+      # Ensure Pyenv is correctly set up
+      export PYENV_ROOT="$HOME/.pyenv"
+      export PATH="$PYENV_ROOT/bin:$PATH"
+      eval "$(pyenv init --path)"
+      eval "$(pyenv init -)"
+      
+      # Set Python 3.12.0 globally
+      pyenv global 3.12.0
+      pyenv rehash
     command: . ${GITPOD_REPO_ROOT}/.vscode/uptime.sh &
+
 vscode:
   extensions:
     - ms-python.python
