@@ -9,24 +9,31 @@ USER gitpod
 # Install required dependencies, but no need for distutils anymore
 RUN sudo apt-get update && sudo apt-get install -y python3-pip
 
-# Install pyenv and set the Python version
-ENV PYTHON_VERSION=3.12
+# Define persistent PYENV root inside /workspace
+ENV PYENV_ROOT=/workspace/.pyenv
+ENV PATH=$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH
 
-ENV PATH=$HOME/.pyenv/bin:$HOME/.pyenv/shims:$PATH
+# Install pyenv and set the Python version persistently
+ENV PYTHON_VERSION=3.12.0
+
 RUN curl -fsSL https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash \
-    && { echo; \
-        echo 'eval "$(pyenv init -)"'; \
-        echo 'eval "$(pyenv virtualenv-init -)"'; } >> /home/gitpod/.bashrc.d/60-python \
+    && echo 'export PYENV_ROOT="/workspace/.pyenv"' >> ~/.bashrc \
+    && echo 'export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"' >> ~/.bashrc \
+    && echo 'eval "$(pyenv init --path)"' >> ~/.bashrc \
     && pyenv update \
     && pyenv install $PYTHON_VERSION \
     && pyenv global $PYTHON_VERSION \
-    && python3 -m pip install --no-cache-dir --upgrade pip \
-    && python3 -m pip install --no-cache-dir --upgrade \
+    && python -m pip install --no-cache-dir --upgrade pip \
+    && python -m pip install --no-cache-dir --upgrade \
         setuptools wheel virtualenv pipenv rope flake8 \
         autopep8 pep8 pylama pydocstyle bandit notebook \
         twine \
     && sudo rm -rf /tmp/*
 
+# Ensure Python persists across Gitpod restarts
+RUN echo "$PYTHON_VERSION" > /workspace/.python-version
+
+# Set up Python user base for persistent pip modules
 ENV PYTHONUSERBASE=/workspace/.pip-modules \
     PIP_USER=yes
 ENV PATH=$PYTHONUSERBASE/bin:$PATH
