@@ -1,3 +1,6 @@
+import warnings
+warnings.simplefilter(action='ignore', category=UserWarning)
+
 import streamlit as st
 from app_pages.multipage import MultiPage
 
