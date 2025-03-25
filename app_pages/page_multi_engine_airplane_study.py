@@ -61,7 +61,7 @@ def page_multi_engine_airplane_study_body():
     # Parallel plot
     if st.checkbox("Parallel Plot"):
         st.write(
-            f"* Information in yellow shows the profile from a Multi Engined Airplane")
+            f"* Information in Blue shows the profile from a Multi Engined Airplane")
         parallel_plot_multi_engine(df_eda)
 
 
@@ -149,7 +149,20 @@ def parallel_plot_multi_engine(df_eda):
     for variable in labels_map.keys():
         df_parallel[variable] = pd.Categorical(df_parallel[variable], categories=sorted(labels_map[variable].values(), reverse=True), ordered=True)
 
-    fig = px.parallel_categories(df_parallel, color="Multi_Engine")   #fig = px.parallel_categories(df_parallel, color="Multi_Engine", color_discrete_sequence=["blue", "orange"])
+
+    # fig = px.parallel_categories(df_parallel, color="Multi_Engine")   
+    # fig = px.parallel_categories(df_parallel, color="Multi_Engine", color_discrete_sequence=["blue", "orange"])
+
+
     #fig.show(renderer='jupyterlab')
     # we use st.plotly_chart() to render, in notebook is fig.show()
+
+
+    fig = px.parallel_categories(
+        df_parallel, 
+        color="Multi_Engine",  # Using 'Multi_Engine' directly for color
+        labels={"Multi_Engine": "Engine Type"},
+        color_continuous_scale=["blue", "orange"]  # Assigning colors for the categories
+    )
+
     st.plotly_chart(fig)
