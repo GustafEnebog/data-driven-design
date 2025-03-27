@@ -49,7 +49,7 @@ def page_ml_cluster_body():
 
     st.write("#### Cluster ML Pipeline steps")
     st.write(cluster_pipe)
-
+    st.image('images_dashboard/pipeline_cluster.png', caption='Pipeline Cluster', width=400)
     st.write("---")
 
     st.write("#### Clusters Silhouette Plot")
@@ -102,34 +102,9 @@ def page_ml_cluster_body():
 
 # code coped from "07 - Modeling and Evaluation - Cluster Sklearn" notebook - under "Cluster Analysis" section
 def cluster_distribution_per_variable(df, target):
-
-    df_bar_plot = df.value_counts(["Clusters", target]).reset_index()
-    df_bar_plot.columns = ['Clusters', target, 'Count']
+    df_bar_plot = df.value_counts(["Clusters", target]).reset_index(name="Count")
     df_bar_plot[target] = df_bar_plot[target].astype('object')
-
     st.write(f"#### Clusters distribution across {target} levels")
-    fig = px.bar(df_bar_plot, x='Clusters', y='Count',
-                 color=target, width=800, height=350)
-    fig.update_layout(xaxis=dict(tickmode='array',
-                      tickvals=df['Clusters'].unique()))
-    # we replaced fig.show() for a streamlit command to render the plot
-    st.plotly_chart(fig)
-
-    df_relative = (df
-                   .groupby(["Clusters", target])
-                   .size()
-                   .groupby(level=0)
-                   .apply(lambda x:  100*x / x.sum())
-                   .reset_index()
-                   .sort_values(by=['Clusters'])
-                   )
-    df_relative.columns = ['Clusters', target, 'Relative Percentage (%)']
-
+    st.image('images_dashboard/count_cluster_engine_type.png', caption='Cluster Engine', width=800)
+    st.image('images_dashboard/count_cluster_multi_engine.png', caption='Multi Engine', width=800)
     st.write(f"#### Relative Percentage (%) of {target} in each cluster")
-    fig = px.line(df_relative, x='Clusters', y='Relative Percentage (%)',
-                  color=target, width=800, height=350)
-    fig.update_layout(xaxis=dict(tickmode='array',
-                      tickvals=df['Clusters'].unique()))
-    fig.update_traces(mode='markers+lines')
-    # we replaced fig.show() for a streamlit command to render the plot
-    st.plotly_chart(fig)

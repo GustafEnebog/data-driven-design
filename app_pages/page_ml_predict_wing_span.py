@@ -49,9 +49,7 @@ def page_ml_predict_wing_span_body():
     st.write("---")
 
     st.write("#### Wingspan Predictor Model Summary")
-    wingspan_predictor_model = load_pkl_file("outputs/ml_pipeline/predict_analysis/wingspan_predictor_model.pkl")
-    st.write(wingspan_predictor_model)
-
+    st.image('images_dashboard/pipeline_predictor.png', caption='Pipeline Predictor', width=400)
     st.write("---")
 
     # Loading plots with error handling
