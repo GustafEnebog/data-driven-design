@@ -106,5 +106,4 @@ def cluster_distribution_per_variable(df, target):
     df_bar_plot[target] = df_bar_plot[target].astype('object')
     st.write(f"#### Clusters distribution across {target} levels")
     st.image('images_dashboard/count_cluster_engine_type.png', caption='Cluster Engine', width=800)
-    st.image('images_dashboard/count_cluster_multi_engine.png', caption='Multi Engine', width=800)
     st.write(f"#### Relative Percentage (%) of {target} in each cluster")
