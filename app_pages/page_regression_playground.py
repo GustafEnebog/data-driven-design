@@ -115,13 +115,9 @@ def DrawInputsWidgets():
         st_widget = st.selectbox(label=feature, options=["Linear", "Quadratic"])
     X_live[feature] = st_widget
 
-    with col6:
-        feature = "Type of graph"
-        st_widget = st.selectbox(label=feature, options=["2D Regression", "3D Regression"])
-    X_live[feature] = st_widget
+    X_live["Type of graph"] = "2D Regression"
 
     return X_live
-
 
 def plot_2d_regression(df, dependent_feature, independent_feature_1, independent_feature_2, filter_option, regression_type):
     """
