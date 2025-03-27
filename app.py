@@ -14,7 +14,7 @@ from app_pages.page_regression_playground import page_regression_playground_body
 from app_pages.page_domain_specific_analysis import page_domain_specific_analysis_body
 from app_pages.page_project_hypothesis import page_project_hypothesis_body
 from app_pages.page_ml_predict_wing_span import page_ml_predict_wing_span_body
-# from app_pages.page_ml_cluster import page_ml_cluster_body
+from app_pages.page_ml_cluster import page_ml_cluster_body
 
 app = MultiPage(app_name= "Airplane Performance Predictor") # Create an instance of the app 
 
@@ -28,6 +28,6 @@ app.add_page("Regression Playground", page_regression_playground_body)
 app.add_page("Domain Specific Analysis", page_domain_specific_analysis_body)
 app.add_page("Project Hypothesis and Validation", page_project_hypothesis_body)
 app.add_page("ML: Predict Wing Span", page_ml_predict_wing_span_body)
-# app.add_page("ML: Cluster Analysis", page_ml_cluster_body)
+app.add_page("ML: Cluster Analysis", page_ml_cluster_body)
 
 app.run() # Run the app
